@@ -1,10 +1,10 @@
 import * as MuiJoy from "@mui/joy";
 import * as MuiMat from "@mui/material"
 import { addItem, data, deleteItem } from './mockData';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import DetailsDialog from './Dialog.jsx';
 import ItemDivider from './Divider.jsx';
-
+import SimpleAlert from "./Alert.jsx";
 
 const AddData = () => {
     const [newItemName, setNewItemName] = useState('');
@@ -15,9 +15,14 @@ const AddData = () => {
     const [currentPage, setCurrentPage] = useState(0);
     const itemsPerPage = 10;
 
+    const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const handleAddItem = () => {
-        if(newItemName === '' && newItemDescription === ''){
-            alert('please provide both name and description.')
+        if(newItemName === '' || newItemDescription === ''){
+            setShowSuccessAlert(true);
+
+            setTimeout(() => {
+                setShowSuccessAlert(false);
+            }, 3000);
         }
         else{
             addItem(newItemName, newItemDescription, newItemPrice);
@@ -80,6 +85,7 @@ const AddData = () => {
                     className="add-item-button"
                     onClick={handleAddItem}>Add Item
                 </MuiJoy.Button>
+                {showSuccessAlert && <SimpleAlert />}
                 <div className="searchBarContainer">
                     <MuiJoy.Input
                         color="warning"
