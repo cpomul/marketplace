@@ -1,41 +1,124 @@
+import * as MuiJoy from "@mui/joy";
+import * as MuiMat from "@mui/material"
+import { addItem, data, deleteItem } from './mockData';
+import {useEffect, useState} from "react";
+import DetailsDialog from './Dialog.jsx';
+import ItemDivider from './Divider.jsx';
 
-import { addItem, data } from './mockData';
-import {useState} from "react";
 
 const AddData = () => {
     const [newItemName, setNewItemName] = useState('');
     const [newItemDescription, setNewItemDescription] = useState('');
+    const [newItemPrice, setNewItemPrice] = useState('');
+    const [search, setSearch] = useState('');
+
+    const [currentPage, setCurrentPage] = useState(0);
+    const itemsPerPage = 10;
 
     const handleAddItem = () => {
-        addItem(newItemName, newItemDescription);
-        setNewItemName('');
-        setNewItemDescription('');
+        if(newItemName === '' && newItemDescription === ''){
+            alert('please provide both name and description.')
+        }
+        else{
+            addItem(newItemName, newItemDescription, newItemPrice);
+            setNewItemName('');
+            setNewItemDescription('');
+            setNewItemPrice('');
+        }
     }
+    const handleDeleteItem = (id) => {
+        deleteItem(id);
+    };
+    const filteredData = data.filter((item) => {
+        if (search === '') {
+            return item;
+        } else {
+            return item.name.toLowerCase().includes(search.toLowerCase());
+        }
+    });
+
+    const handlePageChange = (event, selectedPage) => {
+        setCurrentPage(selectedPage - 1);
+    };
+
+    const pageCount = Math.ceil(filteredData.length / itemsPerPage);
+    const offset = currentPage * itemsPerPage;
+
+
+    const [openDialog, setOpenDialog] = useState(false);
+    const [selectedItem, setSelectedItem] = useState(null);
+
+    const handleListItemClick = (itemIndex) => {
+        const actualIndex = offset + itemIndex;
+        const selectedItem = filteredData[actualIndex];
+        setSelectedItem(selectedItem);
+        setOpenDialog(true);
+    };
 
     return(
         <>
             <div className="add-item-container">
-                <input type="text"
-                       value={newItemName}
-                       placeholder="Name"
-                       onChange={e => setNewItemName(e.target.value)}
+                <MuiJoy.Input
+                    variant="outlined"
+                    color="warning"
+                    className="add-item-input"
+                    type="text"
+                    value={newItemName}
+                    placeholder="Name"
+                    onChange={e => setNewItemName(e.target.value)}
                 />
-                <input
+                <MuiJoy.Input
+                    variant="outlined"
+                    color="warning"
+                    className="add-item-input"
                     type="text"
                     value={newItemDescription}
                     placeholder="Description"
                     onChange={e => setNewItemDescription(e.target.value)}
                 />
-                <button onClick={handleAddItem}>Add Item</button>
+                <MuiJoy.Button
+                    className="add-item-button"
+                    onClick={handleAddItem}>Add Item
+                </MuiJoy.Button>
+                <div className="searchBarContainer">
+                    <MuiJoy.Input
+                        color="warning"
+                        size="lg"
+                        className="searchBar"
+                        type="text"
+                        placeholder="Search items..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
+                    <MuiMat.Pagination
+                        count={pageCount}
+                        page={currentPage + 1} // mui pagination starts from 1
+                        onChange={handlePageChange}
+                        color="warning"
+                        className="pagination-container"
+                        variant="outlined"
+                        shape="rounded"
+                        size="small"
+                    />
+                </div>
             </div>
-
-            <ul>
-                {data.map(item => (
-                    <li key={item.id} className="list-items">
-                        ID: {item.id}, Name: {item.name}, Description: {item.description}
+            <ul className="list-items-container">
+                {filteredData.slice(offset, offset + itemsPerPage).map((item, index) => (
+                    <li className="list-item" key={item.id} onClick={() => handleListItemClick(index)}>
+                        <ItemDivider
+                            name={item.name}
+                            description={item.description}
+                            price={item.price}
+                            onDeleteClick={() => handleDeleteItem(item.id)}
+                        />
                     </li>
                 ))}
             </ul>
+            <DetailsDialog
+                open={openDialog}
+                onClose={() => setOpenDialog(false)}
+                selectedItem={selectedItem}
+            />
         </>
     )
 }

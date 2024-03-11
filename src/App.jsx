@@ -1,15 +1,18 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import Header from "./Components/Header.jsx";
 import AddData from "./Components/AddData.jsx";
-import "./Components/header-additem.css";
+import BottomNavigation from "./Components/Footer.jsx";
+import "./Components/App.css";
+import LogoImg from "./Components/Image.jsx";
+import Logo from "/public/cheeseimg.png"
+import BottomNav from "./Components/Footer.jsx"
 
 function App() {
   return (
       <>
           <Header text="Market"/>
           <AddData />
+          <BottomNav />
       </>
   )
 }

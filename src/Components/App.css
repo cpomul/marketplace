@@ -1,0 +1,74 @@
+.appBar{
+    background-color: #E9E7DF;
+    color: #212121;
+}
+.title-text{
+    margin-left: 35px;
+    color: #213547;
+}
+
+.add-item-container{
+    display: flex;
+    flex-flow: column;
+    margin: 25px;
+}
+.add-item-container > .add-item-input{
+    align-self: end;
+    height: 25px;
+}
+.add-item-container > .add-item-button{
+    display: flex;
+    align-self: end;
+    align-items: center;
+    margin-top: 2px;
+    height: 25px;
+    background-color: #E9DEB0;
+}
+.add-item-container > .add-item-button:hover{
+    background-color: #E9D482;
+}
+.list-items-container{
+    border: 1px solid transparent;
+    border-radius: 25px;
+    background-color: #E9E7DF;
+    padding: 15px;
+    border-top: none;
+    border-bottom: none;
+    height: fit-content;
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    gap: 50px;
+    margin: 50px;
+    justify-content: center;
+    align-items: center;
+}
+.list-item:hover{
+    cursor: pointer;
+    transform: scale(1.05);
+}
+.list-item{
+    display: flex;
+    transition: transform 0.1s ease-in-out;
+}
+.searchBarContainer{
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+}
+.pagination-container{
+    display: flex;
+    justify-content: center;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+.footer-text{
+    display: flex;
+    align-items: center;
+}
+.delete-button{
+    transition: transform 0.1s ease-in-out;
+}
+.delete-button:hover{
+    transform: scale(1.20);
+}
