@@ -17,7 +17,7 @@ const AddData = () => {
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
     const handleAddItem = () => {
-        if(newItemName === '' || newItemDescription === ''){
+        if(newItemName === '' || newItemDescription === '' || newItemPrice === ''){
             setShowSuccessAlert(true);
 
             setTimeout(() => {
@@ -34,6 +34,8 @@ const AddData = () => {
     const handleDeleteItem = (id) => {
         deleteItem(id);
     };
+
+
     const filteredData = data.filter((item) => {
         if (search === '') {
             return item;
@@ -81,6 +83,15 @@ const AddData = () => {
                     placeholder="Description"
                     onChange={e => setNewItemDescription(e.target.value)}
                 />
+                <MuiJoy.Input
+                    variant="outlined"
+                    color="warning"
+                    className="add-item-input"
+                    type="text"
+                    value={newItemPrice}
+                    placeholder="Price"
+                    onChange={(e) => setNewItemPrice(e.target.value)}
+                />
                 <MuiJoy.Button
                     className="add-item-button"
                     onClick={handleAddItem}>Add Item
@@ -115,7 +126,6 @@ const AddData = () => {
                             name={item.name}
                             description={item.description}
                             price={item.price}
-                            onDeleteClick={() => handleDeleteItem(item.id)}
                         />
                     </li>
                 ))}
@@ -124,6 +134,7 @@ const AddData = () => {
                 open={openDialog}
                 onClose={() => setOpenDialog(false)}
                 selectedItem={selectedItem}
+                onDeleteClick={() => handleDeleteItem(selectedItem.id)}
             />
         </>
     )

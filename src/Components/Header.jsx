@@ -25,6 +25,7 @@ export default function ButtonAppBar() {
                         Cheese Market
                     </Typography>
                     <Button color="inherit">Login</Button>
+                    <Button color="inherit">Sign up</Button>
                 </Toolbar>
             </AppBar>
         </Box>
