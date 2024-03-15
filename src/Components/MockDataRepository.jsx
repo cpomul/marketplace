@@ -12,23 +12,45 @@ const data = [
     { id: 10, name: 'Gruyère', price: '$8.49', description: 'A sweet and nutty Swiss cheese.' },
 ];
 
-const addItem = (name, description) => {
+// Constructor
+export const initialize = () => {
+    data.forEach(item =>
+        localStorage.setItem(item.id, JSON.stringify(item))
+    )
+}
+
+// CRUD - Create Read Update Delete
+export const getAll = () => {
+    let data = [];
+    for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i)
+        data.push(JSON.parse(localStorage.getItem(key)))
+    }
+    return data;
+}
+
+export const get = (id) => {
+    return JSON.parse(localStorage.getItem(id));
+}
+
+export const addItem = (name, description) => {
+    const id = data.length + 1;
     const newItem = {
-        id: data.length + 1,
+        id: id,
         name,
         description,
     }
-    data.push(newItem);
+    localStorage.setItem(id.toString(), JSON.stringify(newItem));
 }
-export const deleteItem = (id) => {
-    const index = data.findIndex(item => item.id === id);
+ export const deleteItem = (id) => {
+    const item = localStorage.getItem(id);
 
-    if (index !== -1) {
-        return data.splice(index, 1);
+    if(item === null){
+        return;
     }
 
-    return null;
+    localStorage.removeItem(id);
 }
 
 
-export {data, addItem};
+export default {initialize, addItem, deleteItem};

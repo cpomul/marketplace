@@ -1,6 +1,6 @@
 import * as MuiJoy from "@mui/joy";
 import * as MuiMat from "@mui/material"
-import { addItem, data, deleteItem } from './mockData';
+import { addItem, getAll, deleteItem } from './MockDataRepository.jsx';
 import {useState} from "react";
 import DetailsDialog from './Dialog.jsx';
 import ItemDivider from './Divider.jsx';
@@ -36,7 +36,7 @@ const AddData = () => {
     };
 
 
-    const filteredData = data.filter((item) => {
+    const filteredData = getAll().filter((item) => {
         if (search === '') {
             return item;
         } else {
@@ -109,7 +109,7 @@ const AddData = () => {
                     />
                     <MuiMat.Pagination
                         count={pageCount}
-                        page={currentPage + 1} // mui pagination starts from 1
+                        page={currentPage + 1} // material pagination starts from 1
                         onChange={handlePageChange}
                         color="warning"
                         className="pagination-container"
