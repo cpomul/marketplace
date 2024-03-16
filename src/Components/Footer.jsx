@@ -10,7 +10,7 @@
             window.location.href = "https://github.com/cpomul/marketplace-interface";
         }
         return (
-            <Box sx={{  position: 'fixed', bottom: 0 }} className="bottom-nav">
+            <Box className="bottom-nav">
                 <BottomNavigation
                     showLabels
                 >

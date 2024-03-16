@@ -91,3 +91,17 @@
 .item-name, .item-description, .item-price{
     font-size: 25px;
 }
+.bottom-nav{
+    position: fixed;
+    bottom: 0;
+}
+.product-image{
+    width: 250px;
+    border: 1px solid transparent;
+    border-radius: 150px;
+}
+.error-page{
+    text-align: center;
+    color: red;
+    font-size: 50px;
+}
