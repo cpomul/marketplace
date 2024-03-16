@@ -14,7 +14,7 @@ export default function ItemDivider({ name, price, description}) {
                         {name}
                     </Typography>
                     <Typography gutterBottom variant="h6" component="div">
-                        {price}
+                        ${price}
                     </Typography>
                 </Stack>
                 <Typography color="text.secondary" variant="body2">
