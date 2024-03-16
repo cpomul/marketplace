@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 export default function SimpleAlert() {
     return (
         <Alert icon={<ErrorIcon fontSize="inherit" />} severity="error">
-            You must provide a name and description of your product!
+            You must provide a name, description and the price of your product!
         </Alert>
     );
 }

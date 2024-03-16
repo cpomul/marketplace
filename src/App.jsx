@@ -16,7 +16,6 @@ function App() {
               <Route path="/home" element={<ProductsListingPage />} />
               <Route path="/product/:id" element={<ProductDetailsPage />} />
           </Routes>
-          <BottomNav />
       </>
   )
 }

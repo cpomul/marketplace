@@ -1,6 +1,6 @@
 import * as MuiJoy from "@mui/joy";
 import * as MuiMat from "@mui/material"
-import { addItem, getAll, deleteItem } from './MockDataRepository.jsx';
+import { addItem, getAll } from './MockDataRepository.jsx';
 import {useState} from "react";
 import ItemDivider from './Divider.jsx';
 import SimpleAlert from "./Alert.jsx";
