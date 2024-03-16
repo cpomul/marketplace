@@ -1,19 +1,21 @@
-
 import Header from "./Components/Header.jsx";
-import AddData from "./Components/AddData.jsx";
-import BottomNavigation from "./Components/Footer.jsx";
+import ProductsListingPage from "./Components/ProductsListingPage.jsx";
 import "./Components/App.css";
-import LogoImg from "./Components/Image.jsx";
-import Logo from "/public/cheeseimg.png"
 import BottomNav from "./Components/Footer.jsx"
-import MockDataRepository, {getAll, initialize} from './Components/MockDataRepository.jsx'
+import {initialize} from './Components/MockDataRepository.jsx'
+import { Routes, Route } from 'react-router-dom';
+import ProductDetailsPage from "./Components/ProductDetailsPage.jsx";
 
 function App() {
   initialize();
   return (
       <>
           <Header text="Market"/>
-          <AddData />
+          <Routes>
+              <Route path="/" element={<ProductsListingPage />} />
+              <Route path="/home" element={<ProductsListingPage />} />
+              <Route path="/product/:id" element={<ProductDetailsPage />} />
+          </Routes>
           <BottomNav />
       </>
   )

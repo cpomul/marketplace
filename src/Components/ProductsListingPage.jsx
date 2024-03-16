@@ -2,11 +2,13 @@ import * as MuiJoy from "@mui/joy";
 import * as MuiMat from "@mui/material"
 import { addItem, getAll, deleteItem } from './MockDataRepository.jsx';
 import {useState} from "react";
-import DetailsDialog from './Dialog.jsx';
 import ItemDivider from './Divider.jsx';
 import SimpleAlert from "./Alert.jsx";
+import {useNavigate} from "react-router-dom";
 
-const AddData = () => {
+const ProductsListingPage = () => {
+    const navigate = useNavigate();
+
     const [newItemName, setNewItemName] = useState('');
     const [newItemDescription, setNewItemDescription] = useState('');
     const [newItemPrice, setNewItemPrice] = useState('');
@@ -16,6 +18,7 @@ const AddData = () => {
     const itemsPerPage = 10;
 
     const [showSuccessAlert, setShowSuccessAlert] = useState(false);
+
     const handleAddItem = () => {
         if(newItemName === '' || newItemDescription === '' || newItemPrice === ''){
             setShowSuccessAlert(true);
@@ -31,10 +34,6 @@ const AddData = () => {
             setNewItemPrice('');
         }
     }
-    const handleDeleteItem = (id) => {
-        deleteItem(id);
-    };
-
 
     const filteredData = getAll().filter((item) => {
         if (search === '') {
@@ -50,17 +49,6 @@ const AddData = () => {
 
     const pageCount = Math.ceil(filteredData.length / itemsPerPage);
     const offset = currentPage * itemsPerPage;
-
-
-    const [openDialog, setOpenDialog] = useState(false);
-    const [selectedItem, setSelectedItem] = useState(null);
-
-    const handleListItemClick = (itemIndex) => {
-        const actualIndex = offset + itemIndex;
-        const selectedItem = filteredData[actualIndex];
-        setSelectedItem(selectedItem);
-        setOpenDialog(true);
-    };
 
     return(
         <>
@@ -120,8 +108,8 @@ const AddData = () => {
                 </div>
             </div>
             <ul className="list-items-container">
-                {filteredData.slice(offset, offset + itemsPerPage).map((item, index) => (
-                    <li className="list-item" key={item.id} onClick={() => handleListItemClick(index)}>
+                {filteredData.slice(offset, offset + itemsPerPage).map((item) => (
+                    <li className="list-item" key={item.id} onClick={() => navigate(`/product/${item.id}`)}>
                         <ItemDivider
                             name={item.name}
                             description={item.description}
@@ -130,13 +118,7 @@ const AddData = () => {
                     </li>
                 ))}
             </ul>
-            <DetailsDialog
-                open={openDialog}
-                onClose={() => setOpenDialog(false)}
-                selectedItem={selectedItem}
-                onDeleteClick={() => handleDeleteItem(selectedItem.id)}
-            />
         </>
     )
 }
-export default AddData;
+export default ProductsListingPage;
