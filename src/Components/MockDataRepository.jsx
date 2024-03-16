@@ -32,7 +32,7 @@ export const get = (id) => {
 }
 
 export const addItem = (name, description, price) => {
-    const id = data.length + 1;
+    const id = localStorage.length + 1;
     const newItem = {
         id: id,
         name,
